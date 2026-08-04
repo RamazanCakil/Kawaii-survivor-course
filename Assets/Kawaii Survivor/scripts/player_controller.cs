@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class player_controller : MonoBehaviour
 {
+    [SerializeField] private MobileJoystick playerJoyistic;
+    [SerializeField] private float moveSpeed;
     private Rigidbody2D rig;
 
     void Start()
@@ -13,8 +15,9 @@ public class player_controller : MonoBehaviour
         rig.linearVelocity = Vector2.right;
     }
 
-    void Update()
+    private void FixedUpdate()
     {
+        rig.linearVelocity = playerJoyistic.GetMoveVector() * moveSpeed * Time.deltaTime;
 
     }
 }
