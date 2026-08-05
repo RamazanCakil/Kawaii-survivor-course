@@ -10,7 +10,7 @@ public class renderingobject : MonoBehaviour
     [UnitHeaderInspectable ("Elements")]
     [SerializeField] private SpriteRenderer spriteRenderer;
 
-
+    
 
     // Start, script aktif olduğunda ilk karede (frame) bir kez çalışır
     void Start()
@@ -22,5 +22,11 @@ public class renderingobject : MonoBehaviour
     void Update()
     {
         spriteRenderer.sortingOrder = -(int)(transform.position.y * 10);
+
+
+
     }
+
+
+  
 }

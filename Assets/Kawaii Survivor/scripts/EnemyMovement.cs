@@ -65,6 +65,7 @@ public class EnemyMovement : MonoBehaviour
     [Header("Elements")]
     // 1. DEĞİŞİKLİK: Player yerine player_controller yazıyoruz
     private player_controller player;
+    private bool hasSpawnd = false;
 
     [Header("Effects")]
     [SerializeField] private ParticleSystem passAwayParticles;
@@ -99,6 +100,11 @@ public class EnemyMovement : MonoBehaviour
         SpawnIndicator.enabled = true;
 
 
+        Vector3 targetScale=SpawnIndicator.transform.localScale*1.2f;
+        LeanTween.scale(SpawnIndicator.gameObject, targetScale, .3f).setLoopPingPong(4).setOnComplete(spawnSequenceComplete);
+
+
+
 
     }
 
@@ -106,8 +112,21 @@ public class EnemyMovement : MonoBehaviour
     {
         if (player == null) {return;
     }
+        if (hasSpawnd != true)
+            return;
         FollowPlayer();
         TryAttack();
+    }
+
+
+    private void spawnSequenceComplete() { 
+    
+    
+        renderer.enabled = true;
+        // renderer.gameObject.SetActive(false);         bu kod tüm renderer'ı kapatır ve tüm bileşenleri devre dışı bırakır. Bu nedenle, sadece görünürlüğü kapatmak için enabled özelliğini kullanıyoruz.
+        SpawnIndicator.enabled = false;
+        hasSpawnd=true;
+    
     }
 
     private void FollowPlayer()
