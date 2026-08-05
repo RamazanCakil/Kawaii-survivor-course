@@ -12,13 +12,12 @@ public class player_controller : MonoBehaviour
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
-        // Başlangıç hızı (isteğe bağlı)
-        rig.linearVelocity = Vector2.right * moveSpeed;
+        rig.linearVelocity = Vector2.right;
     }
 
     private void FixedUpdate()
     {
-        // Rigidbody2D için velocity saniyedeki hızdır, FixedUpdate içinde delta zamanı ile çarpılmaz
-        rig.linearVelocity = playerJoyistic.GetMoveVector() * moveSpeed;
+        rig.linearVelocity = playerJoyistic.GetMoveVector() * moveSpeed * Time.deltaTime;
+
     }
 }
