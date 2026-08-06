@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1408137132693241166}
   - component: {fileID: 2318425541734007218}
   - component: {fileID: 7194782921957051402}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4905,7 +4905,7 @@ GameObject:
   - component: {fileID: 959886733066196813}
   - component: {fileID: 5098663120058414250}
   - component: {fileID: 1776286163851944380}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: spawn indicaor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5010,7 +5010,7 @@ GameObject:
   - component: {fileID: 1343390811953731732}
   - component: {fileID: 5780551321812927213}
   - component: {fileID: 6482645627374996040}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5113,9 +5113,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4006868786094027974}
+  - component: {fileID: 8628270102541760171}
   - component: {fileID: 6049990006273253320}
   - component: {fileID: 3417442965488281962}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5140,6 +5141,42 @@ Transform:
   - {fileID: 1408137132693241166}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &8628270102541760171
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8116744185863167225}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.04, y: 0.45}
+  m_Radius: 0.4
 --- !u!114 &6049990006273253320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5149,7 +5186,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8116744185863167225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0095e9b74863ce4ba65320487bb80e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c80f6a787daec6498ad2976ab7382ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::enemy
   renderer: {fileID: 5780551321812927213}
@@ -5157,7 +5194,7 @@ MonoBehaviour:
   passAwayParticles: {fileID: 2318425541734007218}
   damage: 1
   attackFrequency: 1
-  playerDetectionRadius: 0.5
+  playerDetectionRadius: 1
   gizmos: 1
 --- !u!114 &3417442965488281962
 MonoBehaviour:
@@ -5168,7 +5205,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8116744185863167225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f6b47f197a52a144b84c0ec7ea09611, type: 3}
+  m_Script: {fileID: 11500000, guid: 61194f92268f0c24fa973bf1756d21d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
   moveSpeed: 1
