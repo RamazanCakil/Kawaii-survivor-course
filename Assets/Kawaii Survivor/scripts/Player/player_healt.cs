@@ -7,6 +7,7 @@ public class player_healt : MonoBehaviour
 {
     [UnitHeaderInspectable("Settings")]
     [SerializeField] private int Maxhealth;
+    private int health;
 
     [UnitHeaderInspectable("Elements")]
     [SerializeField] private Slider healtsSlider;
@@ -14,7 +15,6 @@ public class player_healt : MonoBehaviour
 
 
 
-    private int health;
     void Start()
     {
         health = Maxhealth;

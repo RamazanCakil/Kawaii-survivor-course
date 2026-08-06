@@ -1,7 +1,9 @@
+
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
-
+using TMPro;
 
 [RequireComponent(typeof(EnemyMovement))]
 public class enemy : MonoBehaviour
@@ -33,6 +35,11 @@ public class enemy : MonoBehaviour
     private float attackTimer;
 
 
+    [UnitHeaderInspectable("Health")]
+    [SerializeField] private int Maxhealth;
+    private int health;
+    [SerializeField] private TextMeshPro healthText;
+
 
     [Header("Debug")]
     [SerializeField] private bool gizmos;
@@ -41,6 +48,9 @@ public class enemy : MonoBehaviour
 
     void Start()
     {
+
+        health = Maxhealth;
+        healthText.text = health.ToString();
         player = FindObjectOfType<Player>();
         movement =GetComponent<EnemyMovement>();
 
@@ -121,6 +131,20 @@ public class enemy : MonoBehaviour
         passAwayParticles.Play();
 
         Destroy(gameObject);
+    }
+
+    public void takeDamage(int Damage) 
+    {
+        int realDamage = Mathf.Min(damage, health);
+        health -= realDamage;
+
+        healthText.text = health.ToString();
+
+        if (health<=0)
+        {
+            passAway();
+        }
+
     }
 
     private void OnDrawGizmosSelected()
