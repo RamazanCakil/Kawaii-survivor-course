@@ -15,6 +15,7 @@ public class Boing : MonoBehaviour
     [UnitHeaderInspectable("Elements")]
     [SerializeField] private Transform HitDetectionTransform;
     [SerializeField] private float HitDetectionRadius;
+    [SerializeField] private BoxCollider2D hitCollider;
 
 
     [UnitHeaderInspectable("Settings")]
@@ -58,7 +59,11 @@ public class Boing : MonoBehaviour
     private void Attack() 
     {
 
-        Collider2D[] enemies = Physics2D.OverlapCircleAll(HitDetectionTransform.position, HitDetectionRadius, enemyMask);
+        //Collider2D[] enemies = Physics2D.OverlapCircleAll(HitDetectionTransform.position, HitDetectionRadius, enemyMask);
+        Collider2D[] enemies = Physics2D.OverlapBoxAll(HitDetectionTransform.position,
+            hitCollider.bounds.size,
+            HitDetectionTransform.localEulerAngles.z,
+            enemyMask );
         for (int i = 0; i < enemies.Length; i++) 
         {
             enemy enemyy = enemies[i].GetComponent<enemy>();
@@ -73,7 +78,6 @@ public class Boing : MonoBehaviour
         }
 
     }
-    [NaughtyAttributes.Button]
     private void StartAttack() {
 
         animator.Play("Attack");
@@ -102,7 +106,9 @@ public class Boing : MonoBehaviour
         if (closestEnemy != null) 
         {
             targetUpVector = (closestEnemy.transform.position - transform.position).normalized;
+            transform.up = targetUpVector;
             ManageAttack();
+
 
         }
 
@@ -150,7 +156,6 @@ public class Boing : MonoBehaviour
 
 
     }
-
 
     private void OnDrawGizmosSelected()
     {

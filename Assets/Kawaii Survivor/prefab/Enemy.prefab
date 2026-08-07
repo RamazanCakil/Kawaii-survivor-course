@@ -5016,7 +5016,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3371234538992111722
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5330,7 +5330,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8116744185863167225}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -5373,6 +5373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::enemy
   renderer: {fileID: 5780551321812927213}
   SpawnIndicator: {fileID: 5098663120058414250}
+  collider: {fileID: 8628270102541760171}
   passAwayParticles: {fileID: 2318425541734007218}
   damage: 1
   attackFrequency: 1

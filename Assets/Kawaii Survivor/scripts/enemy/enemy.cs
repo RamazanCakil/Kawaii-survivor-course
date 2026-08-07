@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using TMPro;
+using System;
 
 [RequireComponent(typeof(EnemyMovement))]
 public class enemy : MonoBehaviour
@@ -22,6 +23,7 @@ public class enemy : MonoBehaviour
     [SerializeField] private SpriteRenderer renderer;
     [SerializeField] private SpriteRenderer SpawnIndicator;
     private bool hasSpawnd = false;
+    [SerializeField] private Collider2D collider;
 
     [Header("Effects")]
     [SerializeField] private ParticleSystem passAwayParticles;
@@ -33,13 +35,15 @@ public class enemy : MonoBehaviour
     [SerializeField] private float playerDetectionRadius;
     private float attackDelay;
     private float attackTimer;
-
+     
 
     [UnitHeaderInspectable("Health")]
     [SerializeField] private int Maxhealth;
     private int health;
     [SerializeField] private TextMeshPro healthText;
 
+    [UnitHeaderInspectable("Actions")]
+    public static Action<int,Vector2> onDamageTaken;
 
     [Header("Debug")]
     [SerializeField] private bool gizmos;
@@ -80,6 +84,7 @@ public class enemy : MonoBehaviour
         setRendererVisibility();
         // renderer.gameObject.SetActive(false);         bu kod tüm renderer'ı kapatır ve tüm bileşenleri devre dışı bırakır. Bu nedenle, sadece görünürlüğü kapatmak için enabled özelliğini kullanıyoruz.
         hasSpawnd = true;
+        collider.enabled = true;
 
         movement.StorePlayer(player);
 
@@ -135,8 +140,10 @@ public class enemy : MonoBehaviour
 
     public void takeDamage(int Damage) 
     {
-        int realDamage = Mathf.Min(damage, health);
+        int realDamage = Mathf.Min(Damage, health);
         health -= realDamage;
+        
+        onDamageTaken?.Invoke(Damage,transform.position);
 
         healthText.text = health.ToString();
 
