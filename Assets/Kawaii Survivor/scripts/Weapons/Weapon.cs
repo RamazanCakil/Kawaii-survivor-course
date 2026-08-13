@@ -243,7 +243,7 @@ public class Boing : MonoBehaviour
             if (!damagedEnemy.Contains(hitObj))
             {
                 // DEĞİŞİKLİK 2: Çarptığımız şey normal düşman mı diye güvenlice soruyoruz
-                if (hitObj.TryGetComponent(out MeleeEnemy normalEnemy))
+                if (hitObj.TryGetComponent(out Enemy normalEnemy))
                 {
                     normalEnemy.takeDamage(damage);
                     damagedEnemy.Add(hitObj);
