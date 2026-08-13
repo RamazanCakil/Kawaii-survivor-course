@@ -9,6 +9,7 @@ using UnityEngine.Rendering.Universal;
 public class Player : MonoBehaviour
 {
     [UnitHeaderInspectable("Components")]
+    [SerializeField] private CircleCollider2D collider;
     private player_healt playerHealth;
 
     // Start, script aktif olduğunda ilk karede (frame) bir kez çalışır
@@ -34,6 +35,9 @@ public class Player : MonoBehaviour
         playerHealth.TakeDamagee(damage);
 
     }
-
+    public Vector2 GetCenter() { 
+    
+            return (Vector2)transform.position + collider.offset;
+    }
 
 }

@@ -12,11 +12,11 @@ public class DamageTextManager : MonoBehaviour
 
     private void Awake()
     {
-        enemy.onDamageTaken += EnemyHitCallBack;
+        MeleeEnemy.onDamageTaken += EnemyHitCallBack;
     }
     private void OnDestroy()
     {
-        enemy.onDamageTaken -= EnemyHitCallBack;
+        MeleeEnemy.onDamageTaken -= EnemyHitCallBack;
     }
 
     void Start()
