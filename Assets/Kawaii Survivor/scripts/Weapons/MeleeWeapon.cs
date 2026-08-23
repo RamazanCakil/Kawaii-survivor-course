@@ -88,12 +88,16 @@ public class MeleeWeapon : Boing
             {
                 if (hitObj.TryGetComponent(out Enemy normalEnemy))
                 {
-                    normalEnemy.takeDamage(damage);
+                    int damage = GetDamage(out bool IsCriticalHit);
+
+                    normalEnemy.takeDamage(damage,IsCriticalHit);
                     damagedEnemy.Add(hitObj);
                 }
                 else if (hitObj.TryGetComponent(out RangeEnemy rangeEnemy))
                 {
-                    rangeEnemy.takeDamage(damage);
+                    int damage = GetDamage(out bool IsCriticalHit);
+
+                    rangeEnemy.takeDamage(damage, IsCriticalHit);
                     damagedEnemy.Add(hitObj);
                 }
             }

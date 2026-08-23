@@ -226,6 +226,19 @@ public abstract class Boing : MonoBehaviour
         return closestEnemy;
     }
 
+
+    protected int GetDamage(out bool IsCriticalHit) { 
+
+    IsCriticalHit = false;
+        if (Random.Range(0,101)<=50) {
+            IsCriticalHit=true;
+            return damage * 2;
+        
+        }
+        return damage;
+    
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

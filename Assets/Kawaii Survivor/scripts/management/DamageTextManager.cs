@@ -1,19 +1,19 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
 
 public class DamageTextManager : MonoBehaviour
 {
-    [UnitHeaderInspectable("Elements")]
+    [Header("Elements")]
     [SerializeField] private DamageText damageTextPrefab;
 
-    [UnitHeaderInspectable("Pooling")]
+    [Header("Pooling")]
     private ObjectPool<DamageText> damageTextPool;
 
     private void Awake()
     {
         MeleeEnemy.onDamageTaken += EnemyHitCallBack;
     }
+
     private void OnDestroy()
     {
         MeleeEnemy.onDamageTaken -= EnemyHitCallBack;
@@ -24,43 +24,37 @@ public class DamageTextManager : MonoBehaviour
         damageTextPool = new ObjectPool<DamageText>(CreateFunction, ActionOnGet, ActionOnRelease, ActionOnDestroy);
     }
 
-    // Üretim metodu: Geriye obje döndürmesi gerektiği için DamageText kalır
     private DamageText CreateFunction()
     {
-        return Instantiate(damageTextPrefab, transform);
+        DamageText instance = Instantiate(damageTextPrefab, transform);
+        // Üretilen yazıya "Senin iade edileceğin havuz bu" diyoruz
+        instance.SetPool(damageTextPool);
+        return instance;
     }
 
-    // Get metodu: Sadece görünür yapacağı için void olmalıdır
     private void ActionOnGet(DamageText damageText)
     {
         damageText.gameObject.SetActive(true);
     }
 
-    // Release metodu: Sadece görünmez yapacağı için void olmalıdır
     private void ActionOnRelease(DamageText damageText)
     {
         damageText.gameObject.SetActive(false);
     }
 
-    // Destroy metodu: Sadece sileceği için void olmalıdır
     private void ActionOnDestroy(DamageText damageText)
     {
         Destroy(damageText.gameObject);
     }
 
-    private void EnemyHitCallBack(int damage, Vector2 enemyPos)
+    private void EnemyHitCallBack(int damage, Vector2 enemyPos, bool isCriticalHit)
     {
         Vector3 randomSpawnPosition = enemyPos + Vector2.up * 1.5f;
 
-        DamageText damageTextInstances = damageTextPool.Get();
-        //DamageText damageTextInstances = Instantiate(damageTextPrefab, randomSpawnPosition ,Quaternion.identity, transform);
+        DamageText damageTextInstance = damageTextPool.Get();
+        damageTextInstance.transform.position = randomSpawnPosition;
 
-        damageTextInstances.transform.position = randomSpawnPosition;
-
-        damageTextInstances.DamageAnimation(damage);
-
-        LeanTween.delayedCall(1f, () => damageTextPool.Release(damageTextInstances));
-
+        // Yazı animasyonunu başlat (Geri sayım ve havuza iade işini artık yazının kendi scripti halledecek)
+        damageTextInstance.DamageAnimation(damage, isCriticalHit);
     }
-
 }

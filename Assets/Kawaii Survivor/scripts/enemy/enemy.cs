@@ -28,7 +28,8 @@ public class Enemy : MonoBehaviour
 
 
     [UnitHeaderInspectable("Actions")]
-    public static Action<int, Vector2> onDamageTaken;
+    public static Action<int, Vector2, bool > onDamageTaken;
+    public static Action<Vector2> onPassedAway;
 
 
     [Header("Debug")]
@@ -88,18 +89,24 @@ public class Enemy : MonoBehaviour
 
     private void passAway()
     {
+
+        onPassedAway?.Invoke(transform.position);
+
+        // Düşman silinmeden önce üzerindeki tüm animasyon ve saatleri iptal et:
+        LeanTween.cancel(gameObject);
+
         passAwayParticles.transform.SetParent(null);
         passAwayParticles.Play();
 
         Destroy(gameObject);
     }
 
-    public void takeDamage(int Damage)
+    public void takeDamage(int Damage,bool isCriticalHit)
     {
         int realDamage = Mathf.Min(Damage, health);
         health -= realDamage;
 
-        onDamageTaken?.Invoke(Damage, transform.position);
+        onDamageTaken?.Invoke(Damage, transform.position,isCriticalHit);
 
 
         if (health <= 0)

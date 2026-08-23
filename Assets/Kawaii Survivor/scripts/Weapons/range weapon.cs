@@ -87,8 +87,11 @@ public class rangeweapon : Boing
 
     private void Shoot()
     {
+
+        int damage = GetDamage(out bool IsCriticalHit);
+
         Bullet bulletInstance = bulletPool.Get();
         // SİLAHI (this) MERMİYE GÖNDERİYORUZ
-        bulletInstance.Shoot(damage, transform.up, this);
+        bulletInstance.Shoot(damage, transform.up, this, IsCriticalHit);
     }
 }
