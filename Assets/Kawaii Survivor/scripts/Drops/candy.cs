@@ -1,16 +1,17 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
-
-public class candy : MonoBehaviour
+using System;
+public class candy : DroppableCurrency
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    [Header("Actions")]
+    public static Action<candy> onCollected; 
+
+    protected override void Collected()
     {
-        
+        onCollected?.Invoke(this);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }
