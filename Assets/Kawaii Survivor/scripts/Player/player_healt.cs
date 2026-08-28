@@ -2,7 +2,6 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 public class player_healt : MonoBehaviour
 {
     [UnitHeaderInspectable("Settings")]
@@ -39,8 +38,7 @@ public class player_healt : MonoBehaviour
     }
     private void PassAway()
     {
-        Debug.Log("Player has died.");
-        SceneManager.LoadScene(0);
+        GameManager.instance.setGameState(GameState.GAMEOVER);
         
     }
 
