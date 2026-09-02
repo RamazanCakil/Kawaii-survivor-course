@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class rangeweapon : Boing
+public class rangeweapon : Boing , IPlayerStatsDependency
 {
     [Header("Elements")]
     [SerializeField] private Transform shootingpoint; // Küçük harfle
@@ -94,4 +94,17 @@ public class rangeweapon : Boing
         // SİLAHI (this) MERMİYE GÖNDERİYORUZ
         bulletInstance.Shoot(damage, transform.up, this, IsCriticalHit);
     }
+
+
+    public void UpdateStats(PlayerStatsManager playerStatsManager)
+    {
+        ConfigureStats();
+        damage = Mathf.RoundToInt(damage * (1 + (weaponData.BaseStats[stat.Attack] / 100) + playerStatsManager.GetStatValue(stat.Attack) / 100));
+        AttackDelay /= 1 + (playerStatsManager.GetStatValue(stat.AttackSpeed) / 100);
+
+        criticalChance = Mathf.RoundToInt(criticalChance * (1 + playerStatsManager.GetStatValue(stat.CriticalChance) / 100));
+        criticalPercent +=  playerStatsManager.GetStatValue(stat.CriticalPercent);
+        range += playerStatsManager.GetStatValue(stat.Range) / 10 ;
+    }
+
 }

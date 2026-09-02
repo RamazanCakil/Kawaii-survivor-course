@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeWeapon : Boing
+public class MeleeWeapon : Boing , IPlayerStatsDependency
 {
     enum State
     {
@@ -126,4 +126,16 @@ public class MeleeWeapon : Boing
         state = State.idle;
         damagedEnemy.Clear();
     }
+
+    public void UpdateStats(PlayerStatsManager playerStatsManager)
+    {
+        ConfigureStats();
+        damage = Mathf.RoundToInt(damage * (1 + (weaponData.BaseStats[stat.Attack] / 100) + playerStatsManager.GetStatValue(stat.Attack) / 100));
+        AttackDelay /= 1 + (playerStatsManager.GetStatValue(stat.AttackSpeed) / 100);
+
+        criticalChance = Mathf.RoundToInt(criticalChance * (1 + playerStatsManager.GetStatValue(stat.CriticalChance) / 100));
+        criticalPercent += playerStatsManager.GetStatValue(stat.CriticalPercent);
+
+    }
+
 }

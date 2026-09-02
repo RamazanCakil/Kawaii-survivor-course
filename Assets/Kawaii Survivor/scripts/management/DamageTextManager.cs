@@ -9,15 +9,24 @@ public class DamageTextManager : MonoBehaviour
     [Header("Pooling")]
     private ObjectPool<DamageText> damageTextPool;
 
+
+
     private void Awake()
     {
         MeleeEnemy.onDamageTaken += EnemyHitCallBack;
+
+        player_healt.onAttackDodged += AttackDodgeCallBack;
     }
 
     private void OnDestroy()
     {
+        player_healt.onAttackDodged -= AttackDodgeCallBack;
+
         MeleeEnemy.onDamageTaken -= EnemyHitCallBack;
     }
+
+
+
 
     void Start()
     {
@@ -55,6 +64,19 @@ public class DamageTextManager : MonoBehaviour
         damageTextInstance.transform.position = randomSpawnPosition;
 
         // Yazı animasyonunu başlat (Geri sayım ve havuza iade işini artık yazının kendi scripti halledecek)
-        damageTextInstance.DamageAnimation(damage, isCriticalHit);
+        damageTextInstance.DamageAnimation(damage.ToString(), isCriticalHit);
     }
+
+    private void AttackDodgeCallBack(Vector2 playerPosition)
+    {
+        Vector3 randomSpawnPosition = playerPosition + Vector2.up * 1.5f;
+
+        DamageText damageTextInstance = damageTextPool.Get();
+        damageTextInstance.transform.position = randomSpawnPosition;
+
+        damageTextInstance.DamageAnimation("Dodged", false);
+
+
+    }
+
 }
