@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void StartGame()             => setGameState(GameState.GAME);
-    public void StartWeaponSelection()  => setGameState(GameState.WEAPONSELECTİON);
+    public void StartWeaponSelection()  => setGameState(GameState.WEAPONSELECTION);
     public void StartShop()             => setGameState(GameState.SHOP);
 
     // Update, oyun çalıştığı sürece her karede (frame) sürekli olarak çalışır

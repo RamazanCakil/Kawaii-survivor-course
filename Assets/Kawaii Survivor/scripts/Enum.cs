@@ -2,7 +2,7 @@
 public enum GameState { 
     
     MENU,
-    WEAPONSELECTİON,
+    WEAPONSELECTION,
     GAME,
     GAMEOVER,
     STAGECOMPLATE,

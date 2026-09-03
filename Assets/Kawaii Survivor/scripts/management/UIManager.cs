@@ -50,7 +50,7 @@ public class UIManager : MonoBehaviour ,IGameStateListener
                 ShowPanel(menuPanel);
                 break;
 
-            case GameState.WEAPONSELECTİON: 
+            case GameState.WEAPONSELECTION: 
                 ShowPanel(weaponSelectionPanel);
                 break;
 

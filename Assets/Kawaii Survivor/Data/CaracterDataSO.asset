@@ -23,7 +23,7 @@ MonoBehaviour:
   maxHealth: 0
   range: 0
   healthRecoverySpeed: 5
-  armor: 10
+  armor: 5
   luck: 0
   dodge: 5
   lifesteal: 1

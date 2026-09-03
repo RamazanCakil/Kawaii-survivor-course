@@ -80,7 +80,7 @@ public abstract class Boing : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, range);
-    }   
+    }
 
     /*
     public void UpdateStats(PlayerStatsManager playerStatsManager)
@@ -92,15 +92,21 @@ public abstract class Boing : MonoBehaviour
     */
     protected void ConfigureStats()
     {
-        float multiplier = 1 + (float)Level / 3;
-        damage =Mathf.RoundToInt( weaponData.GetStatValue(stat.Attack) * multiplier);
-        AttackDelay = 1f / (weaponData.GetStatValue(stat.AttackSpeed) * multiplier);
+        Dictionary<stat, float> calculatedStats = WeaponStatsCalculator.GetStats(weaponData, Level);
 
-        criticalChance = Mathf.RoundToInt(weaponData.GetStatValue(stat.CriticalChance) * multiplier);
-        criticalPercent = weaponData.GetStatValue(stat.CriticalPercent) * multiplier;
+        damage = Mathf.RoundToInt(calculatedStats[stat.Attack]);
+        AttackDelay = 1f / calculatedStats[stat.AttackSpeed];
+        criticalChance = Mathf.RoundToInt(calculatedStats[stat.CriticalChance]);
+        criticalPercent = calculatedStats[stat.CriticalPercent];
+        range = calculatedStats[stat.Range];
 
-        //if(weaponData.Prefab.GetType() == typeof(rangeweapon))
-           // range = weaponData.GetStatValue(stat.Range) * multiplier;
-
+        Debug.Log("Damage : " + damage);
     }
+
+    public void UpgradeTo(int targetLevel)
+    {
+        Level = targetLevel;
+        ConfigureStats();
+    }
+
 }
