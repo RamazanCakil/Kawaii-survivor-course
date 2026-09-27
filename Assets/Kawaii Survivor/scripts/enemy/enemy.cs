@@ -87,14 +87,16 @@ public class Enemy : MonoBehaviour
         SpawnIndicator.enabled = !visibility;
     }
 
-    private void passAway()
+    public void passAway()
     {
 
         onPassedAway?.Invoke(transform.position);
 
-        // Düşman silinmeden önce üzerindeki tüm animasyon ve saatleri iptal et:
-        LeanTween.cancel(gameObject);
+        PassAwayAfterWave();
+    }
 
+    public void PassAwayAfterWave()
+    {
         passAwayParticles.transform.SetParent(null);
         passAwayParticles.Play();
 

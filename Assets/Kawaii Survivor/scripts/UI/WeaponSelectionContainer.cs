@@ -12,6 +12,7 @@ public class WeaponSelectionContainer : MonoBehaviour
 
     [Header("color")]
     [SerializeField] private Image[] levelDependentImages;
+    [SerializeField] private Image outline;
 
     [Header("stats")]
     [SerializeField] private Transform statContainersParent;
@@ -26,6 +27,8 @@ public class WeaponSelectionContainer : MonoBehaviour
 
         Color imageColor = ColorHolder.GetColor(level);
         nameText.color = imageColor;
+
+        outline.color = ColorHolder.GetOutlineColor(level);
 
         foreach (Image image in levelDependentImages)
         {

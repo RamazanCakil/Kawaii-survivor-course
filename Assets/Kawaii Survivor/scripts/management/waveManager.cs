@@ -72,7 +72,8 @@ public class waveManager : MonoBehaviour,IGameStateListener
 
     private void DefeatAllEnemies() 
     {
-        transform.Clear();
+        foreach (Enemy enemy in transform.GetComponentsInChildren<Enemy>())
+            enemy.PassAwayAfterWave();
     }
 
     private void startWave(int waveIndex) 
@@ -141,7 +142,6 @@ public class waveManager : MonoBehaviour,IGameStateListener
         return targetPosition;
     }
 
-    // Sondaki 'b' harfini büyük 'B' yapıyoruz
     public void GameStateChangedCallBack(GameState gameState)
     {
         switch (gameState)
